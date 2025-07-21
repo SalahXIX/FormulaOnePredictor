@@ -32,7 +32,7 @@ def predict(input: PredictionInput):
         df = pd.DataFrame([data])
 
         # One-hot encoding
-        encoded_df = pd.get_dummies(df[['DriverCode', 'team']], drop_first=True)
+        encoded_df = pd.get_dummies(df[['DriverCode', 'team']])
         numerical_df = df[['QualTime', 'grid_position']]
         combined_df = pd.concat([numerical_df, encoded_df], axis=1)
 
@@ -67,5 +67,5 @@ def predict(input: PredictionInput):
 if __name__ == "__main__":
     import uvicorn
     import os
-    port = int(os.environ.get("PORT", 8000)) 
+    port = int(os.environ.get("PORT", 8000))  # fallback to 8000 locally
     uvicorn.run(app, host="0.0.0.0", port=port)
